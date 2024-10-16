@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Register Page</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body>
+  <div class="bg-gradient-to-b from-stone-950 to-yellow-950 h-screen flex items-center justify-center overflow-hidden">
+    <header class="absolute inset-x-0 top-0 z-50">
+      <nav class="flex items-center justify-between p-6 lg:px-8" aria-label="Global">
+        <div class="flex lg:flex-1">
+          <a href="test-landing.html" class="-m-1.5 p-1.5">
+            <img class="h-8 w-auto" src="/src/image/Syncsation Logo.png" alt="">
+          </a>
+        </div>
+
+        <!-- Burger Menu Button -->
+        <div class="lg:hidden">
+          <button type="button" id="burgerMenuButton" class="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-amber-300">
+            <span class="sr-only">Open main menu</span>
+            <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+            </svg>
+          </button>
+        </div>
+
+        <!-- Navigation Links for Large Screens -->
+        <div class="hidden lg:flex lg:flex-1 lg:justify-end lg:pr-8" id="navbar">
+          <a href="test-landing.html" class="text-lg font-semibold leading-6 text-white hover:text-amber-300">Home</a>
+          <a href="test-about.html" class="ml-4 text-lg font-semibold leading-6 text-white hover:text-amber-300">About Us</a>
+        </div>
+      </nav>
+
+      <!-- Hidden Menu for Smaller Screens -->
+      <div id="burgerMenu" class="hidden lg:hidden flex flex-col items-start p-4 bg-amber-300">
+        <a href="test-landing.html" class="block px-4 py-2 text-lg font-semibold text-black hover:text-gray-800">Home</a>
+        <a href="test-about.html" class="block px-4 py-2 text-lg font-semibold text-black hover:text-gray-800">About Us</a>
+      </div>
+    </header>
+
+    <section class="bg-gradient-to-b from-stone-950 to-yellow-950 h-screen flex items-center justify-center">
+      <div class="lg:grid lg:min-h-screen lg:grid-cols-12 flex items-center justify-center">
+        <main class="flex items-center justify-center px-8 py-8 sm:px-12 lg:col-span-7 lg:px-16 lg:py-12 xl:col-span-6">
+          <div class="max-w-xl lg:max-w-3xl">
+
+            <h1 class="mt-20 text-3xl font-bold text-amber-300 sm:text-3xl md:text-4xl">
+              <span class="text-white">Join</span> Syncsation,
+            </h1>
+
+            <p class="mt-2 text-3xl font-bold text-stone-50 sm:text-3xl md:text-4xl">
+              <span class="text-yellow-300">Sync</span> your mood.
+            </p>
+
+            <form action="#" class="mt-8 grid grid-cols-6 gap-6">
+              <div class="col-span-6 sm:col-span-3">
+                <label for="FirstName" class="block text-md font-medium text-amber-300">
+                  First Name
+                </label>
+                <input type="text" id="FirstName" name="first_name" placeholder=" Input Your First Name"
+                  class="mt-1 w-full h-[25px] rounded-md border-gray-200 bg-white text-md text-gray-700 shadow-sm" />
+              </div>
+
+              <div class="col-span-6 sm:col-span-3">
+                <label for="LastName" class="block text-md font-medium text-amber-300">
+                  Last Name
+                </label>
+                <input type="text" id="LastName" name="last_name" placeholder=" input your last name"
+                  class="mt-1 w-full h-[25px] rounded-md border-gray-200 bg-white text-lg text-gray-700 shadow-sm" />
+              </div>
+
+              <div class="col-span-6">
+                <label for="Email" class="block text-md font-medium text-amber-300"> Email </label>
+                <input type="email" id="Email" name="email" placeholder=" input your email"
+                  class="mt-1 w-full h-[25px] rounded-md border-gray-200 bg-white text-lg text-gray-700 shadow-sm" />
+              </div>
+
+              <div class="col-span-6 sm:col-span-3">
+                <label for="Password" class="block text-md font-medium text-amber-300"> Password </label>
+                <input type="password" id="Password" name="password" placeholder=" input your password"
+                  class="mt-1 w-full h-[25px] rounded-md border-gray-200 bg-white text-lg text-amber-300 shadow-sm" />
+              </div>
+
+              <div class="col-span-6 sm:col-span-3">
+                <label for="PasswordConfirmation" class="block text-md font-medium text-amber-300">
+                  Password Confirmation
+                </label>
+                <input type="password" id="PasswordConfirmation" name="password_confirmation"
+                  placeholder=" confirm your password"
+                  class="mt-1 w-full h-[25px] rounded-md border-gray-200 bg-white text-lg text-gray-700 shadow-sm" />
+              </div>
+
+              <div class="col-span-6">
+                <label for="MarketingAccept" class="flex gap-4">
+                  <input type="checkbox" id="MarketingAccept" name="marketing_accept"
+                    class="size-5 rounded-md border-gray-200 bg-white shadow-sm accent-yellow-300" />
+                  <span class="text-base text-amber-300">
+                    I agree Terms & Conditions
+                  </span>
+                </label>
+              </div>
+
+              <div class="col-span-6">
+                <p class="text-base text-amber-300">
+                  By creating an account, you agree to our
+                  <a href="#" class="text-base text-amber-400 underline"> terms and conditions </a>
+                  and
+                  <a href="#" class="text-base text-amber-400 underline">privacy policy</a>.
+                </p>
+              </div>
+
+              <div class="col-span-6 sm:flex sm:flex-col sm:items-center sm:gap-4 p-2">
+                <button
+                  class="inline-block shrink-0 rounded-md border border-amber-400 bg-amber-300 px-12 py-3 text-base font-medium text-black transition hover:bg-transparent hover:text-white focus:outline-none focus:ring active:text-amber-300">
+                  Register
+                </button>
+
+                <p class="mt-4 text-sm text-stone-50 sm:mt-0 text-center">
+                  Already have one?
+                  <a href="test-login.html" class="text-sm text-amber-400 underline hover:text-stone-50">Login</a>.
+                </p>
+              </div>
+            </form>
+          </div>
+        </main>
+        <aside class="relative hidden lg:flex lg:col-span-4 lg:items-center lg:justify-end lg:-mr-10 lg:mt-5 lg:pb-0">
+          <img alt="Image description" src="/src/image/Mask group.svg" class="w-[300px] h-[300px] object-right" />
+        </aside>
+      </div>
+    </section>
+  </div>
+
+  <!-- Script to toggle the burger menu -->
+  <script>
+    const burgerMenuButton = document.getElementById('burgerMenuButton');
+    const burgerMenu = document.getElementById('burgerMenu');
+
+    burgerMenuButton.addEventListener('click', () => {
+      burgerMenu.classList.toggle('hidden');
+    });
+  </script>
+</body>
+
+</html>
