@@ -56,7 +56,7 @@
               <span class="text-yellow-300">Sync</span> your mood.
             </p>
 
-            <form action="#" class="mt-8 grid grid-cols-6 gap-6">
+            <form id="registerForm" action="#" class="mt-8 grid grid-cols-6 gap-6">
               <div class="col-span-6 sm:col-span-3">
                 <label for="FirstName" class="block text-md font-medium text-amber-300">
                   First Name
@@ -142,6 +142,29 @@
     burgerMenuButton.addEventListener('click', () => {
       burgerMenu.classList.toggle('hidden');
     });
+
+    document.getElementById('registerForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const firstName = document.getElementById('FirstName').value;
+            const lastName = document.getElementById('LastName').value;
+            const email = document.getElementById('Email').value;
+            const password = document.getElementById('Password').value;
+
+            const response = await fetch('http://localhost:3000/register', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ first_name: firstName, last_name: lastName, email, password }),
+            });
+
+            const data = await response.json();
+            if (response.ok) {
+                alert('Registration successful!');
+            } else {
+                alert('Error: ' + data.error);
+            }
+        });
   </script>
 </body>
 
