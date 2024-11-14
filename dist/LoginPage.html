@@ -51,7 +51,7 @@
                             <span class="text-stone-50">You're</span> syncsational
                         </p>
 
-                        <form action="#" class="mt-8 grid grid-cols-6 gap-6">
+                        <form action="#" id="loginForm "class="mt-8 grid grid-cols-6 gap-6">
 
                             <div class="col-span-6 sm:col-span-5">
                                 <label for="Email" class="block text-lg font-medium text-amber-300"> Email </label>
@@ -75,7 +75,7 @@
                             </div>
 
                             <div class="col-span-6 sm:flex sm:flex-col sm:items-center sm:gap-4 p-2">
-                                <button
+                                <button type="submit"
                                     class="inline-block shrink-0 rounded-md border border-amber-400 bg-amber-300 px-12 py-3 text-base font-medium text-black transition hover:bg-transparent hover:text-white focus:outline-none focus:ring active:text-amber-300">
                                     Login
                                 </button>
@@ -97,6 +97,37 @@
             </div>
         </section>
     </div>
+    <script>
+        document.getElementById('loginForm').addEventListener('submit', async function(event) {
+        event.preventDefault(); // Prevent the default form submission
+
+        const email = document.getElementById('Email').value;
+        const password = document.getElementById('Password').value;
+
+        try {
+            const response = await fetch('http://localhost:3000/login', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ email, password })
+            });
+
+            const data = await response.json();
+
+            if (response.ok) {
+                // Login successful - redirect to landing page
+                window.location.href = '/dist/LandingPage.html'; // Change this to your landing page URL
+            } else {
+                // Login failed
+                alert(data.error);
+            }
+        } catch (error) {
+            console.error('Error:', error);
+            alert('An error occurred while logging in.');
+        }
+    });
+    </script>
 </body>
 
 </html>
