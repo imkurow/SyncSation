@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Home</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Anuphan:wght@600&family=Instrument+Sans:wght@600&display=swap"
+    rel="stylesheet">
+  <link rel="icon" type="image/x-icon" href="/src/image/Icon.png">
+
+</head>
+
+<body class="bg-gradient-to-b from-stone-950 to-yellow-950 min-h-screen flex flex-col">
+
+  <header class="bg-transparent">
+    <div class="container mx-auto flex items-center justify-between p-6 md:px-8">
+      <!-- Logo Section -->
+      <div class="flex items-center space-x-4">
+        <a href="/dist/User/Home.html">
+          <img src="/src/image/Syncsation Logo.png" alt="Logo" class="h-8">
+        </a>
+      </div>
+
+      <!-- Navbar Section -->
+      <div class="hidden lg:flex flex-grow justify-center">
+        <nav class="flex space-x-8 text-[#F8CD43] font-semibold mt-4 lg:mt-0 ml-[-200px]">
+          <a href="/dist/User/Home.html" class="hover:underline">Home</a>
+          <a href="/dist/User/AboutUs.html" class="hover:underline">About Us</a>
+          <a href="/dist/User/FaceRecog.html" class="hover:underline">Sync</a>
+          <a href="/dist/User/Playlist.html" class="hover:underline">Playlist</a>
+          <a href="/dist/User/History.html" class="hover:underline">History</a>
+        </nav>
+      </div>
+
+      <!-- Profile Section for Desktop -->
+      <div class="hidden lg:flex items-center space-x-4 mt-4 lg:mt-0">
+        <!-- Profile Logo -->
+        <a href="/dist/User/Profile.html">
+          <img src="/src/image/LogoProfile.svg" alt="Profile Logo" class="w-8 h-8">
+        </a>
+      </div>
+
+
+      <!-- Hamburger and Dropdown Section for Small Screens -->
+      <div class="relative lg:hidden">
+        <!-- Hamburger Button -->
+        <button id="hamburger" class="block focus:outline-none">
+          <!-- Hamburger Icon -->
+          <div class="space-y-1">
+            <div class="w-8 h-1 bg-[#F8CD43] rounded"></div>
+            <div class="w-8 h-1 bg-[#F8CD43] rounded"></div>
+            <div class="w-8 h-1 bg-[#F8CD43] rounded"></div>
+          </div>
+        </button>
+
+        <!-- Dropdown Menu -->
+        <div id="dropdown"
+          class="hidden absolute right-0 mt-2 bg-gradient-to-b from-stone-950 to-yellow-950 text-white rounded shadow-lg w-48 z-50">
+          <a href="/dist/User/Home.html"
+            class="block px-4 py-2 hover:bg-yellow-100 hover:text-white active:bg-yellow-500 active:text-white transition-colors duration-300">Home</a>
+          <a href="/dist/User/AboutUs.html"
+            class="block px-4 py-2 hover:bg-yellow-500 hover:text-white active:bg-yellow-500 active:text-white transition-colors duration-300">About
+            Us</a>
+          <a href="/dist/User/FaceRecog.html"
+            class="block px-4 py-2 hover:bg-yellow-500 hover:text-white active:bg-yellow-500 active:text-white transition-colors duration-300">Sync</a>
+          <a href="/dist/User/Playlist.html"
+            class="block px-4 py-2 hover:bg-yellow-500 hover:text-white active:bg-yellow-500 active:text-white transition-colors duration-300">Playlist</a>
+          <a href="/dist/User/History.html"
+            class="block px-4 py-2 hover:bg-yellow-500 hover:text-white active:bg-yellow-500 active:text-white transition-colors duration-300">History</a>
+          <a href="/dist/User/Profile.html"
+            class="block px-4 py-2 hover:bg-yellow-500 hover:text-white active:bg-yellow-500 active:text-white transition-colors duration-300">Profile</a>
+          <a href="/dist/NonUser/LandingPage.html"
+            class="block px-4 py-2 hover:bg-yellow-500 hover:text-white active:bg-yellow-500 active:text-white transition-colors duration-300">Logout</a>
+        </div>
+      </div>
+  </header>
+
+
+
+  <!-- Main Section -->
+  <main class="container mx-auto p-8 flex flex-col items-center justify-between min-h-[70vh] md:flex-row md:space-x-8">
+    <div class="text-center md:text-left space-y-4 md:flex-1 pb-4">
+      <h1 class="text-2xl md:text-4xl font-bold text-[#F8CD43]" style="font-family: 'Instrument Sans', sans-serif;">
+        Welcome!
+        <span id="user-name"></span>
+      </h1>
+      <p class="text-lg md:text-2xl text-white" style="font-family: 'Instrument Sans', sans-serif;">
+        How's your mood today? Let's explore some music that matches your vibe!
+      </p>
+    </div>
+
+    <div class="flex justify-end items-center flex-1 mt-4 md:mt-0">
+      <a href="/dist/User/FaceRecog.html" class="transform transition-transform duration-300 hover:scale-110">
+        <div class="relative w-72 h-72 bg-cover bg-center rounded-lg"
+          style="background-image: url('/src/image/Group 11.1.svg');">
+        </div>
+      </a>
+    </div>
+  </main>
+
+  <!-- Popular Music Section -->
+  <section class="container mx-auto p-8">
+    <h2 class="text-2xl font-bold text-white mb-6">Popular Music</h2>
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-10 mt-8 text-white">
+      <div class="text-center group" id="artikerl1">
+        <img src="/src/image/PM 1.png" class="w-full h-72 object-cover rounded-lg" alt="Anything you want">
+        <h3 class="text-white group-hover:underline mt-2">Anything you want</h3>
+        <p class="text-[#A5A5A5] group-hover:underline">Realty Club</p>
+      </div>
+      <div class="text-center group">
+        <img src="/src/image/PM 2.png" class="w-full h-72 object-cover rounded-lg" alt="Tak Di Tanganku">
+        <h3 class="text-white group-hover:underline mt-2">Tak Di Tanganku</h3>
+        <p class="text-[#A5A5A5] group-hover:underline">Juicy Luicy & Mawar de Jongh</p>
+      </div>
+      <div class="text-center group">
+        <img src="/src/image/PM 3.png" class="w-full h-72 object-cover rounded-lg" alt="Vampire">
+        <h3 class="text-white group-hover:underline mt-2">Vampire</h3>
+        <p class="text-[#A5A5A5] group-hover:underline">Olivia Rodrigo</p>
+      </div>
+      <div class="text-center group">
+        <img src="/src/image/PM 4.png" class="w-full h-72 object-cover rounded-lg" alt="Die With Smile">
+        <h3 class="text-white group-hover:underline mt-2">Die With Smile</h3>
+        <p class="text-[#A5A5A5] group-hover:underline">Lady Gaga & Bruno Mars</p>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- Footer -->
+  <footer class="bg-[#1f0e04] py-6">
+    <div class="container mx-auto text-center space-y-6">
+      <h2 class="text-3xl md:text-xl font-bold">
+        <span class="text-[#F8CD43]">Sync</span> <span class="text-white">your mood.</span>
+      </h2>
+      <hr class="border-t-2 border-white w-1/3 mx-auto">
+      <ul class="flex justify-center flex-wrap space-x-4 mt-4">
+        <li><a href="/dist/HomeLogin.html" class="text-[#A5A5A5] hover:text-[#F8CD43]">Home</a></li>
+        <li><a href="/dist/AboutUs.html" class="text-[#A5A5A5] hover:text-[#F8CD43]">About</a></li>
+        <li><a href="#" class="text-[#A5A5A5] hover:text-[#F8CD43]">Service</a></li>
+        <li><a href="#" class="text-[#A5A5A5] hover:text-[#F8CD43]">Team</a></li>
+        <li><a href="#" class="text-[#A5A5A5] hover:text-[#F8CD43]">Contact</a></li>
+      </ul>
+      <div class="flex justify-center space-x-6 mt-4">
+        <a href="https://www.instagram.com/">
+          <img src="/src/image/Instagram.png" class="w-6 h-6" alt="Instagram">
+        </a>
+        <a href="https://discord.com/">
+          <img src="/src/image/Discord.png" class="w-6 h-6" alt="Discord">
+        </a>
+        <a href="https://www.facebook.com/">
+          <img src="/src/image/Facebook.png" class="w-6 h-6" alt="Facebook">
+        </a>
+      </div>
+      <p class="text-[#A5A5A5] mt-4">
+        Copyright © 2024 SyncSation. All rights reserved.
+      </p>
+    </div>
+  </footer>
+
+</body>
+
+<script>
+  // Toggle dropdown menu visibility
+  const hamburger = document.getElementById('hamburger');
+  const dropdown = document.getElementById('dropdown');
+  document.getElementById('user-name').textContent = `${user.first_name} ${user.last_name}`;
+
+  hamburger.addEventListener('click', () => {
+    dropdown.classList.toggle('hidden');
+  });
+
+  // Close dropdown when clicking outside
+  document.addEventListener('click', (e) => {
+    if (!hamburger.contains(e.target) && !dropdown.contains(e.target)) {
+      dropdown.classList.add('hidden');
+    }
+  });
+
+  // document.addEventListener('DOMContentLoaded', async () => {
+  //   const token = localStorage.getItem('token');
+  //   if (!token) {
+  //       // No token, redirect to login
+  //       window.location.href = '/dist/NonUser /Login.html';
+  //   } else {
+  //       try {
+  //           const response = await fetch('http://localhost:3000/session/user', {
+  //               headers: { 'Authorization': `Bearer ${token}` }
+  //           });
+  //           if (response.ok) {
+  //               const user = await response.json();
+  //           } else {
+  //               // If the session is invalid, redirect to login
+  //               window.location.href = '/dist/NonUser/Login.html';
+  //           }
+  //       } catch (error) {
+  //           console.error('Error fetching session:', error);
+  //           window.location.href = '/dist/NonUser/Login.html';
+  //       }
+  //     }
+  //   });
+
+</script>
+
+<style>
+  /* Pastikan dropdown berada di atas semua konten */
+  #dropdown {
+    z-index: 50;
+    /* Pastikan nilainya cukup besar */
+  }
+
+  /* Hover effect for dropdown links */
+  #dropdown a:hover {
+    background-color: #F8CD43;
+    /* Warna hover kuning */
+    color: #000;
+    /* Teks berubah menjadi hitam */
+    transition: background-color 0.3s, color 0.3s;
+  }
+
+  /* Custom hover and transition effects */
+  #dropdown a:hover {
+    transition: background-color 0.3s;
+  }
+
+  /* Responsive Design */
+  @media (max-width: 1027px) {
+
+    /* Hide Navbar and Profile Section for smaller screens */
+    .hidden.lg\\:flex {
+      display: none;
+    }
+
+    /* Display Hamburger Menu on smaller screens */
+    .relative.lg\\:hidden {
+      display: block;
+    }
+  }
+
+  @media (min-width: 1028px) {
+
+    /* Ensure Hamburger Menu is hidden for larger screens */
+    .relative.lg\\:hidden {
+      display: none;
+    }
+  }
+
+  /* Pastikan footer selalu di bagian bawah */
+  body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+  }
+
+  /* Main konten akan mengambil sisa ruang */
+  main {
+    flex: 1;
+  }
+
+  /* Section agar melebar penuh */
+  section {
+    width: 100%;
+    padding-left: 2rem;
+    /* Tambahkan jarak kiri */
+    padding-right: 2rem;
+    /* Tambahkan jarak kanan */
+  }
+</style>
+
+</html>

@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Anuphan:wght@600&family=Instrument+Sans:wght@600&display=swap"
+        rel="stylesheet">
+    <link rel="icon" type="image/x-icon" href="/src/image/Icon.png">
+</head>
+
+<body class="bg-gradient-to-b from-stone-950 to-yellow-950 min-h-screen">
+
+    <header class="bg-transparent">
+        <div class="container mx-auto flex items-center justify-between p-6 md:px-8">
+            <!-- Logo Section -->
+            <div class="flex items-center space-x-4">
+                <a href="/dist/User/Home.html">
+                    <img src="/src/image/Syncsation Logo.png" alt="Logo" class="h-8">
+                </a>
+            </div>
+
+            <!-- Navbar Section -->
+            <div class="hidden lg:flex flex-grow justify-center">
+                <nav class="flex space-x-8 text-[#F8CD43] font-semibold mt-4 lg:mt-0 ml-[-200px]">
+                    <a href="/dist/User/Home.html" class="hover:underline">Home</a>
+                    <a href="/dist/User/AboutUs.html" class="hover:underline">About Us</a>
+                    <a href="/dist/User/FaceRecog.html" class="hover:underline">Sync</a>
+                    <a href="/dist/User/Playlist.html" class="hover:underline">Playlist</a>
+                    <a href="/dist/User/History.html" class="hover:underline">History</a>
+                </nav>
+            </div>
+
+            <!-- Profile Section for Desktop -->
+            <div class="hidden lg:flex items-center space-x-4 mt-4 lg:mt-0">
+                <!-- Profile Logo -->
+                <a href="/dist/User/Profile.html">
+                    <img src="/src/image/LogoProfile.svg" alt="Profile Logo" class="w-8 h-8">
+                </a>
+            </div>
+
+            <!-- Hamburger and Dropdown Section for Small Screens -->
+            <div class="relative lg:hidden">
+                <!-- Hamburger Button -->
+                <button id="hamburger" class="block focus:outline-none">
+                    <!-- Hamburger Icon -->
+                    <div class="space-y-1">
+                        <div class="w-8 h-1 bg-[#F8CD43] rounded"></div>
+                        <div class="w-8 h-1 bg-[#F8CD43] rounded"></div>
+                        <div class="w-8 h-1 bg-[#F8CD43] rounded"></div>
+                    </div>
+                </button>
+
+                <!-- Dropdown Menu -->
+                <div id="dropdown"
+                    class="hidden absolute right-0 mt-2 bg-gradient-to-b from-stone-950 to-yellow-950 text-white rounded shadow-lg w-48 z-50">
+                    <a href="/dist/User/Home.html"
+                        class="block px-4 py-2 hover:bg-yellow-100 hover:text-white active:bg-yellow-500 active:text-white transition-colors duration-300">Home</a>
+                    <a href="/dist/User/AboutUs.html"
+                        class="block px-4 py-2 hover:bg-yellow-500 hover:text-white active:bg-yellow-500 active:text-white transition-colors duration-300">About
+                        Us</a>
+                    <a href="/dist/User/FaceRecog.html"
+                        class="block px-4 py-2 hover:bg-yellow-500 hover:text-white active:bg-yellow-500 active:text-white transition-colors duration-300">Sync</a>
+                    <a href="/dist/User/Playlist.html"
+                        class="block px-4 py-2 hover:bg-yellow-500 hover:text-white active:bg-yellow-500 active:text-white transition-colors duration-300">Playlist</a>
+                    <a href="/dist/User/History.html"
+                        class="block px-4 py-2 hover:bg-yellow-500 hover:text-white active:bg-yellow-500 active:text-white transition-colors duration-300">History</a>
+                    <a href="/dist/User/Profile.html"
+                        class="block px-4 py-2 hover:bg-yellow-500 hover:text-white active:bg-yellow-500 active:text-white transition-colors duration-300">Profile</a>
+                    <a href="/dist/NonUser/LandingPage.html"
+                        class="block px-4 py-2 hover:bg-yellow-500 hover:text-white active:bg-yellow-500 active:text-white transition-colors duration-300">Logout</a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+
+    <!-- Main Container -->
+    <div class="bg-transparent min-h-screen text-white p-8">
+        <div class="container mx-auto max-w-4xl">
+            <!-- Edit Profile Section -->
+            <h1 class="text-3xl font-bold mb-4">
+                <span class="text-white">Edit</span>
+                <span class="text-[#F8CD43]">Profile</span>
+            </h1>
+            <p class="text-white mb-8 text-lg">
+                Keep your privacy details private. The information you add here can be seen by anyone who can see your
+                profile.
+            </p>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12">
+                <!-- First Name -->
+                <div>
+                    <label for="first-name" class="block text-lg font-medium mb-2 text-[#F8CD43]">First Name</label>
+                    <input type="text" id="first-name" value="John"
+                        class="w-full p-3 bg-transparent border border-[#F8CD43] rounded-full focus:ring-yellow-400 focus:border-yellow-400 text-white" />
+                </div>
+
+                <!-- Last Name -->
+                <div>
+                    <label for="last-name" class="block text-lg font-medium mb-2 text-white">Last Name</label>
+                    <input type="text" id="last-name" value="Doe"
+                        class="w-full p-3 bg-transparent border border-[#F8CD43] rounded-full focus:ring-yellow-400 focus:border-yellow-400 text-white" />
+                </div>
+
+                <!-- Username -->
+                <div class="col-span-1 md:col-span-2">
+                    <label for="username" class="block text-lg font-medium mb-2 text-[#F8CD43]">Username</label>
+                    <input type="text" id="username" value="john_doe"
+                        class="w-full p-3 bg-transparent border border-[#F8CD43] rounded-full focus:ring-yellow-400 focus:border-yellow-400 text-white" />
+                    <span id="username-error" class="text-red-500 text-sm hidden">Username already taken</span>
+                </div>
+            </div>
+
+
+            <!-- Account Management Section -->
+            <h2 class="text-3xl font-bold mb-4">
+                <span class="text-[#F8CD43]">Account</span>
+                <span class="text-white">Management</span>
+            </h2>
+            <p class="text-white mb-8 text-xl">
+                Make changes to your personal information or account type.
+            </p>
+
+            <div class="mb-8">
+                <h3 class="text-xl font-semibold mb-4 text-white">Your Account</h3>
+                <div class="mb-6">
+                    <label for="email" class="block text-lg font-medium mb-2">
+                        <span class="text-[#F8CD43]">Email</span>
+                        <span class="text-white">• Private</span>
+                    </label>
+                    <input type="email" id="email" value="johndoe@example.com" readonly
+                        class="w-full p-3 bg-transparent border border-[#F8CD43] rounded-full text-white cursor-not-allowed" />
+                </div>
+
+                <div class="flex items-center space-x-4">
+                    <div class="flex-grow">
+                        <label for="password" class="block text-lg font-medium mb-2 text-[#F8CD43]">Password</label>
+                        <div class="relative">
+                            <input type="password" id="password"
+                                class="w-full p-3 bg-transparent border border-[#F8CD43] rounded-full focus:ring-yellow-400 focus:border-yellow-400 text-white" />
+                            <button id="toggle-password" type="button"
+                                class="absolute right-3 top-3 text-[#F8CD43] hover:text-yellow-400 transition duration-300">
+                                Show
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <br>
+
+                <h3 class="text-xl font-semibold mb-4 text-white">Personal Information</h3>
+                <label for="phone-number" class="block text-lg font-medium mb-2">
+                    <span class="text-[#F8CD43]">Phone Number</span>
+                    <span class="text-white">• Optional</span>
+                </label>
+                <input type="text" id="phone-number" value="1234567890" readonly
+                    class="w-full p-3 bg-transparent border border-[#F8CD43] rounded-full text-white cursor-not-allowed" />
+            </div>
+
+            <!-- Reset and Save Buttons -->
+            <div class="flex justify-end space-x-4 mt-8">
+                <button id="reset-btn"
+                    class="px-6 py-3 border border-[#F8CD43] text-[#F8CD43] rounded-full hover:bg-yellow-400 hover:text-black transition duration-300">
+                    Reset
+                </button>
+                <button id="save-btn"
+                    class="px-6 py-3 bg-black text-[#F8CD43] font-semibold rounded-full hover:bg-yellow-400 hover:text-black transition duration-300">
+                    Save
+                </button>
+            </div>
+        </div>
+    </div>
+
+
+
+    <script>
+        // Toggle dropdown menu visibility
+        const hamburger = document.getElementById('hamburger');
+        const dropdown = document.getElementById('dropdown');
+
+        hamburger.addEventListener('click', () => {
+            dropdown.classList.toggle('hidden');
+        });
+
+        // Close dropdown when clicking outside
+        document.addEventListener('click', (e) => {
+            if (!hamburger.contains(e.target) && !dropdown.contains(e.target)) {
+                dropdown.classList.add('hidden');
+            }
+        });
+
+        // Mendapatkan elemen input password dan tombol toggle
+        const passwordInput = document.getElementById('password');
+        const togglePasswordButton = document.getElementById('toggle-password');
+
+        // Menambahkan event listener untuk tombol toggle password
+        togglePasswordButton.addEventListener('click', () => {
+            // Memeriksa apakah input password sedang tersembunyi
+            const type = passwordInput.type === 'password' ? 'text' : 'password';
+
+            // Mengubah tipe input password (menjadi 'text' untuk menunjukkan, atau 'password' untuk menyembunyikan)
+            passwordInput.type = type;
+
+            // Menyesuaikan teks pada tombol toggle (Show atau Hide)
+            togglePasswordButton.textContent = type === 'password' ? 'Show' : 'Hide';
+        });
+
+        // Username validation (checking if username exists in database)
+        const usernameField = document.getElementById('username');
+        const usernameError = document.getElementById('username-error');
+
+        usernameField.addEventListener('blur', async () => {
+            const username = usernameField.value;
+            // Perform an AJAX request or fetch to check if username exists
+            const response = await fetch(`/check-username?username=${username}`);
+            const data = await response.json();
+            if (data.exists) {
+                usernameError.classList.remove('hidden');
+            } else {
+                usernameError.classList.add('hidden');
+            }
+        });
+
+        // Save button logic
+        const saveBtn = document.getElementById('save-btn');
+        saveBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            const password = passwordField.value;
+
+            // Validate password length
+            if (password.length < 8) {
+                alert("Password must be at least 8 characters long.");
+                return;
+            }
+
+            // You can send a POST request here to save the updated data.
+            const updatedData = {
+                firstName: document.getElementById('first-name').value,
+                lastName: document.getElementById('last-name').value,
+                username: usernameField.value,
+                password: password,
+                phoneNumber: document.getElementById('phone-number').value,
+            };
+
+            // Example request to save the data
+            fetch('/update-profile', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(updatedData)
+            }).then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        alert("Profile updated successfully");
+                    } else {
+                        alert("Failed to update profile");
+                    }
+                });
+        });
+    </script>
+
+    <style>
+        /* Pastikan dropdown berada di atas semua konten */
+        #dropdown {
+            z-index: 50;
+        }
+
+        /* Hover effect for dropdown links */
+        #dropdown a:hover {
+            background-color: #F8CD43;
+            color: #000;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        @media (max-width: 1027px) {
+            .hidden.lg\\:flex {
+                display: none;
+            }
+
+            .relative.lg\\:hidden {
+                display: block;
+            }
+        }
+
+        @media (min-width: 1028px) {
+            .relative.lg\\:hidden {
+                display: none;
+            }
+        }
+    </style>
+</body>
+
+</html>
