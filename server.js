@@ -5,7 +5,8 @@ const jwt = require('jsonwebtoken');
 const cors = require('cors');
 const bcrypt = require('bcrypt');
 const path = require('path')
-const session = require('express-session')
+const session = require('express-session');
+const SpotifyWebApi = require('spotify-web-api-node');
 
 
 const app = express();
@@ -127,3 +128,99 @@ app.get('/session/user', (req, res) => {
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);
 });
+
+
+const spotifyApi = new SpotifyWebApi({
+    clientId: 'a4c8819ddee947b08c70c3473efda476',
+    clientSecret: '1ff6e5967c7f43989f0e33a311a112f2',
+    redirectUri: 'http://localhost:3000/callback'
+  });
+  
+  // token endpoint
+  app.get('/spotify/token', async (req, res) => {
+    try {
+      console.log('Getting Spotify token...');
+      const data = await spotifyApi.clientCredentialsGrant();
+      console.log('Token received:', data.body['access_token']);
+      spotifyApi.setAccessToken(data.body['access_token']);
+      res.json({ token: data.body['access_token'] });
+    } catch (error) {
+      console.error('Error getting token:', error);
+      res.status(500).json({ error: error.message });
+    }
+  });
+  
+  
+  // Endpoint untuk mendapatkan playlist berdasarkan mood
+  app.get('/spotify/mood-playlist/:mood', async (req, res) => {
+    try {
+      const mood = req.params.mood;
+      console.log('Fetching playlist for mood:', mood);
+      
+      // Pastikan token masih valid
+      if (!spotifyApi.getAccessToken()) {
+        const data = await spotifyApi.clientCredentialsGrant();
+        spotifyApi.setAccessToken(data.body['access_token']);
+      }
+  
+      let searchQuery;
+      switch(mood) {
+        case 'happy':
+          searchQuery = 'mood:happy genre:pop';
+          break;
+        case 'sad':
+          searchQuery = 'mood:sad genre:indie';
+          break;
+        case 'furious':
+          searchQuery = 'genre:rock genre:metal';
+          break;
+        case 'meh':
+          searchQuery = 'genre:chill mood:peaceful';
+          break;
+        default:
+          searchQuery = 'genre:pop';
+      }
+  
+      console.log('Search query:', searchQuery);
+      const data = await spotifyApi.searchTracks(searchQuery, { limit: 50 });
+      res.json(data.body.tracks.items);
+    } catch (error) {
+      console.error('Error getting playlist:', error);
+      res.status(500).json({ error: error.message });
+    }
+  });
+
+  app.get('/spotify/playlist/:type', async (req, res) => {
+    try {
+        const vibeType = req.params.type;
+        console.log('Fetching playlist for vibe:', vibeType);
+        
+        if (!spotifyApi.getAccessToken()) {
+            const data = await spotifyApi.clientCredentialsGrant();
+            spotifyApi.setAccessToken(data.body['access_token']);
+        }
+  
+        let playlistId;
+        switch(vibeType) {
+            case 'lounge':
+                playlistId = '37i9dQZF1DX0SM0LYsmbMT'; // Jazz Lounge playlist
+                break;
+            case 'comfy':
+                playlistId = '37i9dQZF1DWWQRwui0ExPn'; // Cozy Acoustic playlist
+                break;
+            default:
+                throw new Error('Invalid vibe type');
+        }
+  
+        const data = await spotifyApi.getPlaylist(playlistId);
+        const tracks = data.body.tracks.items
+            .filter(item => item.track && item.track.preview_url)
+            .map(item => item.track)
+            .slice(0, 20);
+  
+        res.json(tracks);
+    } catch (error) {
+        console.error('Error getting playlist:', error);
+        res.status(500).json({ error: error.message });
+    }
+  });

@@ -93,24 +93,19 @@
         <!-- Playlist Cards -->
         <section class="grid grid-cols-1 md:grid-cols-2 gap-6">
             <!-- Lounge Vibes -->
-            <a href="#######" class="relative overflow-hidden rounded-lg shadow-lg group block">
+            <a href="#" onclick="getVibePlaylist('lounge'); return false;" class="relative overflow-hidden rounded-lg shadow-lg group block">
                 <div class="w-full aspect-video">
-                    <!-- Memastikan proporsi gambar 16:9 -->
                     <img src="/src/image/BannerPlaylist1.png" alt="Lounge Vibes" class="w-600 h-400">
                 </div>
-                <div
-                    class="absolute inset-0 bg-black bg-opacity-20 flex items-center justify-center opacity-0 group-hover:opacity-100 transition duration-300">
-
+                <div class="absolute inset-0 bg-black bg-opacity-20 flex items-center justify-center opacity-0 group-hover:opacity-100 transition duration-300">
                 </div>
             </a>
             <!-- Comfy Vibes -->
-            <a href="#######" class="relative overflow-hidden rounded-lg shadow-lg group block">
+            <a href="#" onclick="getVibePlaylist('comfy'); return false;" class="relative overflow-hidden rounded-lg shadow-lg group block">
                 <div class="w-full aspect-video">
-                    <!-- Memastikan proporsi gambar 16:9 -->
                     <img src="/src/image//BannerPlaylist2.png" alt="Comfy Vibes" class="w-600 h-400">
                 </div>
-                <div
-                    class="absolute inset-0 bg-black bg-opacity-20 flex items-center justify-center opacity-0 group-hover:opacity-100 transition duration-300">
+                <div class="absolute inset-0 bg-black bg-opacity-20 flex items-center justify-center opacity-0 group-hover:opacity-100 transition duration-300">
                 </div>
             </a>
         </section>
@@ -129,24 +124,33 @@
             <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
                 <!-- Happy -->
                 <button
-                    class="bg-gradient-to-b from-[#B4DB92] to-[#F3F1B5] text-white w-full aspect-square rounded-lg text-left font-semibold hover:from-[#A0C87C] hover:to-[#D9D890] flex items-start justify-start p-4">
+                    class="mood-button bg-gradient-to-b from-[#B4DB92] to-[#F3F1B5] text-white w-full aspect-square rounded-lg text-left font-semibold hover:from-[#A0C87C] hover:to-[#D9D890] flex items-start justify-start p-4"
+                    data-mood="happy">
                     <span class="text-white text-2xl font-medium">Happy</span>
                 </button>
                 <!-- Sad -->
                 <button
-                    class="bg-gradient-to-b from-[#184A58] to-[#4D2BCA] text-white w-full aspect-square rounded-lg text-left font-semibold hover:from-[#103A4A] hover:to-[#3B1A97] flex items-start justify-start p-4">
+                    class="mood-button bg-gradient-to-b from-[#184A58] to-[#4D2BCA] text-white w-full aspect-square rounded-lg text-left font-semibold hover:from-[#103A4A] hover:to-[#3B1A97] flex items-start justify-start p-4"
+                    data-mood="sad">
                     <span class="text-white text-2xl font-medium">Sad</span>
                 </button>
                 <!-- Furious -->
                 <button
-                    class="bg-gradient-to-b from-[#CD3E3E] to-[#DA2F05] text-white w-full aspect-square rounded-lg text-left font-semibold hover:from-[#B02A2A] hover:to-[#9A2505] flex items-start justify-start p-4">
+                    class="mood-button bg-gradient-to-b from-[#CD3E3E] to-[#DA2F05] text-white w-full aspect-square rounded-lg text-left font-semibold hover:from-[#B02A2A] hover:to-[#9A2505] flex items-start justify-start p-4"
+                    data-mood="furious">
                     <span class="text-white text-2xl font-medium">Furious</span>
                 </button>
                 <!-- Meh -->
                 <button
-                    class="bg-gradient-to-b from-[#92A6A0] to-[#D9D9D9] text-white w-full aspect-square rounded-lg text-left font-semibold hover:from-[#7A8C87] hover:to-[#B8B8B8] flex items-start justify-start p-4">
+                    class="mood-button bg-gradient-to-b from-[#92A6A0] to-[#D9D9D9] text-white w-full aspect-square rounded-lg text-left font-semibold hover:from-[#7A8C87] hover:to-[#B8B8B8] flex items-start justify-start p-4"
+                    data-mood="meh">
                     <span class="text-white text-2xl font-medium">Meh.</span>
                 </button>
+            </div>
+        
+            <!-- Add playlist container -->
+            <div id="playlist-container" class="mt-8">
+                <!-- Playlists will be displayed here -->
             </div>
         </section>
 
@@ -185,24 +189,275 @@
     </div>
 
 
+    <script>
+        // Toggle dropdown menu visibility
+        const hamburger = document.getElementById('hamburger');
+        const dropdown = document.getElementById('dropdown');
+    
+        hamburger.addEventListener('click', () => {
+            dropdown.classList.toggle('hidden');
+        });
+    
+        // Close dropdown when clicking outside
+        document.addEventListener('click', (e) => {
+            if (!hamburger.contains(e.target) && !dropdown.contains(e.target)) {
+                dropdown.classList.add('hidden');
+            }
+        });
+
+        async function getSpotifyToken() {
+            try {
+                console.log('Requesting token...');
+                const response = await fetch('http://localhost:3000/spotify/token');
+                if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                const data = await response.json();
+                console.log('Token received');
+                return data.token;
+            } catch (error) {
+                console.error('Error getting token:', error);
+                throw error;
+            }
+            }
+
+            async function getMoodPlaylist(mood) {
+                try {
+                    console.log('Fetching playlist for mood:', mood);
+                    const response = await fetch(`http://localhost:3000/spotify/mood-playlist/${mood}`);
+                    if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                    }
+                    const tracks = await response.json();
+                    console.log('Tracks received:', tracks.length);
+                    displayTracks(tracks, mood);
+                } catch (error) {
+                    console.error('Error getting playlist:', error);
+                    // Tampilkan pesan error ke user
+                    const playlistContainer = document.getElementById('playlist-container');
+                    playlistContainer.innerHTML = `
+                    <div class="text-red-500 p-4">
+                        Error loading playlist. Please try again later.
+                    </div>
+                    `;
+                }
+                }
+            function displayTracks(tracks, mood) {
+                const playlistContainer = document.getElementById('playlist-container');
+                if (!tracks || tracks.length === 0) {
+                    playlistContainer.innerHTML = `
+                    <div class="text-white p-4">
+                        No tracks found for ${mood} mood.
+                    </div>
+                    `;
+                    return;
+                }
+
+                playlistContainer.innerHTML = `
+                    <h3 class="text-2xl text-white mb-4">${mood.charAt(0).toUpperCase() + mood.slice(1)} Playlist</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                    ${tracks.map((track, index) => `
+                        <div class="bg-gray-800 p-4 rounded-lg hover:bg-gray-700 transition-colors">
+                        <div class="relative group cursor-pointer" onclick="togglePlay(${index}, '${track.preview_url || ''}')">
+                            <img src="${track.album.images[0].url}" alt="${track.name}" class="w-full rounded-lg mb-2">
+                            <div class="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity rounded-lg">
+                            ${track.preview_url ? `
+                                <button class="play-button-${index} text-white">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-16 w-16" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" />
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                </svg>
+                                </button>
+                            ` : `
+                                <span class="text-white text-sm">Preview not available</span>
+                            `}
+                            </div>
+                        </div>
+                        <h4 class="text-white font-semibold truncate">${track.name}</h4>
+                        <p class="text-gray-400 truncate">${track.artists.map(artist => artist.name).join(', ')}</p>
+                        ${track.preview_url ? `
+                            <div class="mt-2">
+                            <div class="progress-bar-${index} w-full h-1 bg-gray-600 rounded">
+                                <div class="progress-${index} h-full bg-yellow-400 rounded w-0"></div>
+                            </div>
+                            <div class="time-${index} text-gray-400 text-sm mt-1">0:00</div>
+                            </div>
+                        ` : '<p class="text-gray-400 mt-2">Preview not available</p>'}
+                        </div>
+                    `).join('')}
+                    </div>
+                `;
+            }
+
+                // Tambahkan variabel untuk melacak audio yang sedang diputar
+                let currentAudio = null;
+                let currentIndex = null;
+
+                // Fungsi untuk mengubah format waktu
+                function formatTime(seconds) {
+                const minutes = Math.floor(seconds / 60);
+                const remainingSeconds = Math.floor(seconds % 60);
+                return `${minutes}:${remainingSeconds.toString().padStart(2, '0')}`;
+                }
+
+                // Fungsi untuk memutar/menghentikan musik
+                function togglePlay(index, previewUrl) {
+                console.log('Attempting to play:', previewUrl); // Tambahkan logging
+
+                if (!previewUrl) {
+                    console.log('No preview URL available');
+                    return;
+                }
+
+                const playButton = document.querySelector(`.play-button-${index}`);
+                if (!playButton) {
+                    console.log('Play button not found');
+                    return;
+                }
+
+                try {
+                    if (currentAudio && currentIndex !== index) {
+                        console.log('Stopping current audio');
+                        currentAudio.pause();
+                        updatePlayButton(currentIndex, false);
+                        resetProgress(currentIndex);
+                    }
+
+                    if (!currentAudio || currentIndex !== index) {
+                        console.log('Creating new audio instance');
+                        currentAudio = new Audio(previewUrl);
+                        currentIndex = index;
+
+                        // Add loading state
+                        playButton.innerHTML = `<span class="text-white">Loading...</span>`;
+
+                        // Add more detailed error handling
+                        currentAudio.addEventListener('error', (e) => {
+                            console.error('Audio error:', e);
+                            console.error('Error code:', e.target.error.code);
+                            updatePlayButton(index, false);
+                            resetProgress(index);
+                            currentAudio = null;
+                            currentIndex = null;
+                        });
+
+                        // Add loading handler
+                        currentAudio.addEventListener('canplay', () => {
+                            console.log('Audio can play now');
+                            updatePlayButton(index, true);
+                        });
+
+                        // Add play handler
+                        currentAudio.addEventListener('play', () => {
+                            console.log('Audio started playing');
+                        });
+
+                        currentAudio.play()
+                            .then(() => {
+                                console.log('Playback started successfully');
+                            })
+                            .catch(error => {
+                                console.error('Playback failed:', error);
+                                updatePlayButton(index, false);
+                                resetProgress(index);
+                                currentAudio = null;
+                                currentIndex = null;
+                            });
+                    } else {
+                        if (currentAudio.paused) {
+                            console.log('Resuming audio');
+                            currentAudio.play()
+                                .then(() => console.log('Resume successful'))
+                                .catch(error => console.error('Resume failed:', error));
+                            updatePlayButton(index, true);
+                        } else {
+                            console.log('Pausing audio');
+                            currentAudio.pause();
+                            updatePlayButton(index, false);
+                        }
+                    }
+                } catch (error) {
+                    console.error('Toggle play error:', error);
+                    updatePlayButton(index, false);
+                    resetProgress(index);
+                    currentAudio = null;
+                    currentIndex = null;
+                }
+            }
+
+                // Fungsi untuk mengupdate tampilan tombol play/pause
+                function updatePlayButton(index, isPlaying) {
+                const button = document.querySelector(`.play-button-${index}`);
+                if (button) {
+                    button.innerHTML = isPlaying ? `
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-16 w-16" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 9v6m4-6v6m7-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                    ` : `
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-16 w-16" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" />
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                    `;
+                }
+            }
+
+                // Fungsi untuk mereset progress bar
+                function resetProgress(index) {
+                const progressBar = document.querySelector(`.progress-${index}`);
+                const timeDisplay = document.querySelector(`.time-${index}`);
+                if (progressBar) progressBar.style.width = '0%';
+                if (timeDisplay) timeDisplay.textContent = '0:00';
+                }
+
+           // Event listeners
+           document.querySelectorAll('.mood-button').forEach(button => {
+                button.addEventListener('click', () => {
+                    const mood = button.getAttribute('data-mood');
+                    console.log('Mood clicked:', mood);
+                    getMoodPlaylist(mood);
+                });
+                });
+
+                // Initialize
+                document.addEventListener('DOMContentLoaded', async () => {
+                try {
+                    await getSpotifyToken();
+                    console.log('Initialization complete');
+                } catch (error) {
+                    console.error('Initialization failed:', error);
+                }
+                });
+
+                async function getVibePlaylist(vibeType) {
+                    try {
+                        console.log('Fetching playlist for vibe:', vibeType);
+                        // Update URL endpoint
+                        const response = await fetch(`http://localhost:3000/spotify/playlist/${vibeType}`);
+                        if (!response.ok) {
+                            throw new Error(`HTTP error! status: ${response.status}`);
+                        }
+                        const tracks = await response.json();
+                        console.log('Tracks received:', tracks.length);
+                        
+                        const formattedVibeType = vibeType.charAt(0).toUpperCase() + vibeType.slice(1);
+                        displayTracks(tracks, `${formattedVibeType} Vibes`);
+                    } catch (error) {
+                        console.error('Error getting playlist:', error);
+                        const playlistContainer = document.getElementById('playlist-container');
+                        playlistContainer.innerHTML = `
+                            <div class="text-red-500 p-4">
+                                Error loading playlist. Please try again later.
+                            </div>
+                        `;
+                    }
+                }
+            
+        
+    
+    </script>
 </body>
 
-<script>
-    // Toggle dropdown menu visibility
-    const hamburger = document.getElementById('hamburger');
-    const dropdown = document.getElementById('dropdown');
-
-    hamburger.addEventListener('click', () => {
-        dropdown.classList.toggle('hidden');
-    });
-
-    // Close dropdown when clicking outside
-    document.addEventListener('click', (e) => {
-        if (!hamburger.contains(e.target) && !dropdown.contains(e.target)) {
-            dropdown.classList.add('hidden');
-        }
-    });
-</script>
 
 <style>
     /* Pastikan dropdown berada di atas semua konten */
